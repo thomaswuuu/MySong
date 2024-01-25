@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ("partials/head") %>
+  </head>
+  <body>
+    <header><%- include ("partials/nav") %></header>
+    <main>
+      <div class="spinner-border" id="spinner"></div>
+      <div class="charts" id="charts">
+        <h4><span>KKBOX 排行榜列表</span></h4>
+        <% if(kkboxCharts){ %><% kkboxCharts.forEach((chart)=> { %>
+        <div
+          class="chart-box kkbox-border fade-in"
+          data-type="KKBOX"
+          data-id="<%= chart.id %>"
+        >
+          <img src="<%= chart.cover %>" />
+          <p><%= chart.title %></p>
+        </div>
+        <% });%><% } %>
+        <h4><span>Spotify 排行榜列表</span></h4>
+        <% if(spotifyCharts) { %><% spotifyCharts.forEach((chart)=> { %>
+        <div
+          class="chart-box spotify-border fade-in"
+          data-type="Spotify"
+          data-id="<%= chart.id %>"
+        >
+          <img src="<%= chart.cover %>" />
+          <p><%= chart.title %></p>
+        </div>
+        <% });%><% } %>
+      </div>
+      <div class="tracks" id="tracks"></div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="previewModal"
+        tabindex="-1"
+        aria-labelledby="previewModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Music Preview</h5>
+              <button
+                type="button"
+                id="previewClose"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <iframe
+                id="previewKKBOX"
+                width="100%"
+                src=""
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+              <div id="previewSpotify">
+                <div id="embed-iframe"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+    <script src="../javascripts/global.js" type="text/javascript"></script>
+    <script src="../javascripts/mysong.js" type="text/javascript"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+  </body>
+</html>

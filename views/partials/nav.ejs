@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg bg-white">
+  <div class="container-fluid">
+    <a class="navbar-brand logo" href="/"
+      ><img src="../images/paper-plane-solid.svg" /> MySong</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapsibleNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <button
+            type="button"
+            class="btn"
+            data-bs-dismiss="collapse"
+            data-type="home"
+          >
+            <a class="nav-link" href="/">首頁</a>
+          </button>
+        </li>
+        <% if(!user) { %>
+        <li class="nav-item">
+          <button
+            type="button"
+            class="btn kkbox"
+            data-bs-dismiss="collapse"
+            data-type="login"
+          >
+            <a class="nav-link" href="/auth/login">會員登入</a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button
+            type="button"
+            class="btn spotify"
+            data-bs-dismiss="collapse"
+            data-type="register"
+          >
+            <a class="nav-link" href="/auth/signup">註冊會員</a>
+          </button>
+        </li>
+        <% } %> <% if(user) { %>
+        <li class="nav-item">
+          <button
+            type="button"
+            class="btn spotify"
+            data-bs-dismiss="collapse"
+            data-type="profile"
+          >
+            <a class="nav-link" href="/profile">個人檔案</a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button
+            type="button"
+            class="btn spotify"
+            data-bs-dismiss="collapse"
+            data-type="logout"
+          >
+            <a class="nav-link" href="/auth/logout">登出系統</a>
+          </button>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
