@@ -40,7 +40,10 @@ form button:hover {
   max-width: 360px;
   margin: 3rem auto;
 }
-
+.alert {
+  max-width: 360px;
+  margin: 0 auto;
+}
 span.psw {
   float: right;
 }

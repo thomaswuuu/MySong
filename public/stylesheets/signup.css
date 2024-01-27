@@ -1,6 +1,6 @@
 form {
   max-width: 360px;
-  margin: 2rem auto;
+  margin: 1rem auto;
 }
 
 /* Full-width input fields */
@@ -52,6 +52,14 @@ form button:hover {
 /* Add padding to container elements */
 .container {
   padding: 16px;
+}
+.signup {
+  max-width: 360px;
+  margin: 3rem auto 1rem auto;
+}
+.alert {
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 /* Clear floats */
