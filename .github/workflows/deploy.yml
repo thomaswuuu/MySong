@@ -1,0 +1,40 @@
+name: Deploy MySong
+on:
+  push:
+    branches:
+      - main
+      - "feature/*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+
+      - name: Set AWS application and environment variables
+        run: |
+          if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
+            echo "application_name=MySong" >> $GITHUB_ENV
+            echo "environment_name=MySong-env" >> $GITHUB_ENV
+          elif [[ $GITHUB_REF == 'refs/heads/feature/*' ]]; then
+            echo "application_name=MySong" >> $GITHUB_ENV
+            echo "environment_name=TestMySong-env" >> $GITHUB_ENV
+          else
+            echo "Unknown branch, not setting variables"
+          fi
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v18
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: ${{ env.application_name }}
+          environment_name: ${{ env.environment_name }}
+          existing_bucket_name: elasticbeanstalk-us-east-1-179525072156
+          region: us-east-1
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip
+          use_existing_version_if_available: "true"
