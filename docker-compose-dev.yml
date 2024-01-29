@@ -6,11 +6,6 @@ services:
       dockerfile: Dockerfile.dev
     container_name: MySong
     env_file: .env
-    environment:
-      MONGO_URI: ${MONGO_URI}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-      JWT_SECRET: ${JWT_SECRET}
     ports:
       - "${PORT}:${PORT}"
   nginx:

@@ -3,7 +3,7 @@ const GoogleStrategy = require("passport-google-oauth20");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
-const { HOST, PORT } = process.env;
+const HOST = process.env.HOST;
 
 passport.serializeUser((user, done) => {
   console.log("Serialize user...");
@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `http://127.0.0.1/auth/google/redirect`,
+      callbackURL: `http://${HOST}/auth/google/redirect`,
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log("進入Google Stratagy的區域");
