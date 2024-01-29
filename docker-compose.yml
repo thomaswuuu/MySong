@@ -1,0 +1,25 @@
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: MySong
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: ${PORT}
+    ports:
+      - "${PORT}:${PORT}"
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    container_name: myNginx
+    depends_on:
+      - web
+    ports:
+      - "80:80"

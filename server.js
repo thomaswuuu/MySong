@@ -48,7 +48,7 @@ app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 
 // Port binding
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`Server running on port ${port}.`);
 });
