@@ -8,28 +8,7 @@
     <header><%- include ("partials/nav") %></header>
     <main>
       <div class="login">
-        <form action="/auth/login" method="post">
-          <div class="container">
-            <h1>Login</h1>
-            <p>Please login with your email.</p>
-            <label for="email"><b>Email</b></label>
-            <input
-              type="email"
-              placeholder="Enter Your Email"
-              name="email"
-              required
-            />
-
-            <label for="psw"><b>Password</b></label>
-            <input
-              type="password"
-              placeholder="Enter Your Password"
-              name="psw"
-              required
-            />
-            <button type="submit">Login</button>
-          </div>
-        </form>
+        <h1>Login</h1>
         <div>
           <a class="btn btn-lg google" href="/auth/google"
             ><img
@@ -38,6 +17,29 @@
             Google Login</a
           >
         </div>
+        <hr />
+        <form action="/auth/login" method="post">
+          <div class="container">
+            <!-- <p>Please login with your email.</p> -->
+            <label for="email"><b>Email</b></label>
+            <input
+              type="email"
+              placeholder="Enter Your Email"
+              name="username"
+              required
+            />
+
+            <label for="password"><b>Password</b></label>
+            <input
+              type="password"
+              placeholder="Enter Your Password"
+              name="password"
+              required
+            />
+            <%- include ("partials/message") %>
+            <button type="submit">Login</button>
+          </div>
+        </form>
       </div>
     </main>
   </body>

@@ -22,10 +22,6 @@ const getTracksModel = () => {
   return tracksModel;
 };
 
-const getMessages = () => {
-  return messages;
-};
-
 /* Create token data */
 const createToken = async () => {
   try {
@@ -148,7 +144,6 @@ const getTracksData = async (playlist_id) => {
 module.exports = {
   getChartsModel,
   getTracksModel,
-  getMessages,
   getChartsData,
   getTracksData,
 };

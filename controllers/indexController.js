@@ -28,7 +28,7 @@ const getAllCharts = async (req, res) => {
         cover: chart.cover,
       };
     });
-    return res.render("index", { kkboxCharts, spotifyCharts, user: null });
+    return res.render("index", { kkboxCharts, spotifyCharts, user: req.user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

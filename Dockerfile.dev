@@ -1,0 +1,21 @@
+# Set node base image
+FROM node:20-alpine
+
+# Set user
+USER node
+
+# Setup working directory
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
+
+# Copy package.json to working directory
+COPY --chown=node:node package*.json ./
+
+# Install package dependecy modules
+RUN npm install
+
+# Copy source code to working directory
+COPY --chown=node:node ./ ./
+
+# Initial process
+CMD [ "npm","start" ]

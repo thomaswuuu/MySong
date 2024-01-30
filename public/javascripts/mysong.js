@@ -100,7 +100,7 @@ const queryTracks = (e) => {
                               </div>
                             </div>`;
       });
-      tracks.innerHTML += `<p class="back">返回排行榜列表</p>`;
+      tracks.innerHTML += `<p class="back">返回</p>`;
       // Add click event of preview and back
       const previews = document.querySelectorAll(".preview");
       previews.forEach((preview) => {

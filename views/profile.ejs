@@ -6,8 +6,9 @@
   <body>
     <header><%- include ("partials/nav") %></header>
     <main>
-      <h3>Name:XXX</h3>
-      <h3>Personal token: XXXXX</h3>
+      <img src="<%= user.thumbnail %>" alt="head" />
+      <h3>Username:<%= user.name %></h3>
+      <h4>Personal token: <%= user.ID %></h4>
       <hr />
       <h4>Spotify收藏歌曲</h4>
       <div>...</div>
