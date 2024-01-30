@@ -80,7 +80,7 @@ router.post(
     // Create JWT token
     const user = req.user;
     const token = JWT.sign({ user }, JWTSecret, { expiresIn: "1h" });
-    res.cookie("jwt_token", token, { httpOnly: true, maxAge: 36000 });
+    res.cookie("jwt_token", token);
     // Redirect to profile
     return res.redirect("/profile");
   }
