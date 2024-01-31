@@ -18,6 +18,10 @@ h3,
 h4 {
   width: 100%;
 }
+.user {
+  width: 100px;
+  height: 100px;
+}
 .logo {
   font-style: oblique;
   font-size: 25px;
@@ -41,12 +45,7 @@ h4 {
   margin: 25vh auto;
   padding: 2rem 2rem;
 }
-.kkbox:active {
-  color: #09cef6;
-}
-.spotify:active {
-  color: #0bd022;
-}
+
 .charts,
 .tracks {
   display: flex;
@@ -81,7 +80,6 @@ h4 {
   font-size: 20px;
   color: darkslategray;
 }
-
 .tracks {
   max-width: 960px;
 }
@@ -139,12 +137,15 @@ h4 {
 .track-box .title a:hover {
   text-decoration: underline;
 }
+.track-box .follow,
 .track-box .preview {
   font-weight: bold;
   color: #0d6efd;
   text-align: center;
   cursor: pointer;
+  margin: 0 10px;
 }
+.track-box .follow:hover,
 .track-box .preview:hover {
   color: #0a58ca;
 }

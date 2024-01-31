@@ -6,7 +6,11 @@
   <body>
     <header><%- include ("partials/nav") %></header>
     <main>
-      <img src="<%= user.thumbnail %>" alt="head" />
+      <% if(user.thumbnail) { %>
+      <img class="user" src="<%= user.thumbnail %>" alt="userhead" />
+      <% } else { %>
+      <img class="user" src="../images/user-solid.svg" alt="userhead" />
+      <% } %>
       <h3>Username:<%= user.name %></h3>
       <h4>Personal token: <%= user.ID %></h4>
       <hr />
