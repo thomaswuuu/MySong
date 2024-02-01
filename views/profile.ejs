@@ -2,23 +2,135 @@
 <html lang="en">
   <head>
     <%- include ("partials/head") %>
+    <link href="../stylesheets/profile.css" rel="stylesheet" />
   </head>
   <body>
     <header><%- include ("partials/nav") %></header>
     <main>
-      <% if(user.thumbnail) { %>
-      <img class="user" src="<%= user.thumbnail %>" alt="userhead" />
-      <% } else { %>
-      <img class="user" src="../images/user-solid.svg" alt="userhead" />
-      <% } %>
-      <h3>Username:<%= user.name %></h3>
-      <h4>Personal token: <%= user.ID %></h4>
+      <div class="user">
+        <% if(user.thumbnail) { %>
+        <img class="user-image" src="<%= user.thumbnail %>" alt="userhead" />
+        <% } else { %>
+        <img class="user-image" src="../images/user-solid.svg" alt="userhead" />
+        <% } %>
+        <div class="user-info">
+          <h3>使用者：<%= user.name %></h3>
+          <h4>電子信箱：<%= user.email %></h4>
+        </div>
+      </div>
       <hr />
-      <h4>Spotify收藏歌曲</h4>
-      <div>...</div>
-      <h4>KKBOX收藏歌曲</h4>
-      <div>...</div>
+      <div class="profile">
+        <h4>KKBOX 歌曲追蹤列表</h4>
+        <% if(kkboxFollows.length) { %> <% kkboxFollows.forEach((follow)=>{ %>
+        <div class="track-box kkbox-border fade-in">
+          <img src="<%= follow.cover %>" />
+          <div class="title">
+            <a href="<%= follow.titleLink %>" target="_blank"
+              ><%= follow.title %></a
+            >
+            <div class="artist">
+              <a href="<%= follow.artistLink %>" target="_blank"
+                ><%= follow.artist %></a
+              >
+            </div>
+          </div>
+          <div
+            class="follow"
+            data-enable="0"
+            data-type="<%= follow.type %>"
+            data-id="<%= follow.track_id %>"
+          >
+            移除
+          </div>
+          <div
+            class="preview"
+            data-bs-toggle="modal"
+            data-type="<%= follow.type %>"
+            data-id="<%= follow.track_id %>"
+            data-bs-target="#previewModal"
+          >
+            試聽
+          </div>
+        </div>
+        <% }) %> <% } %>
+      </div>
+      <div class="profile">
+        <h4>Spotify追蹤歌曲列表</h4>
+        <% if(spotifyFollows.length) { %> <% spotifyFollows.forEach((follow)=>{
+        %>
+        <div class="track-box spotify-border fade-in">
+          <img src="<%= follow.cover %>" />
+          <div class="title">
+            <a href="<%= follow.titleLink %>" target="_blank"
+              ><%= follow.title %>
+            </a>
+            <div class="artist">
+              <a href="<%= follow.artistLink %>" target="_blank"
+                ><%= follow.artist %>
+              </a>
+            </div>
+          </div>
+          <div
+            id="profileFollow"
+            class="follow"
+            data-enable="0"
+            data-type="<%= follow.type %>"
+            data-id="<%= follow.track_id %>"
+          >
+            移除
+          </div>
+          <div
+            class="preview"
+            data-bs-toggle="modal"
+            data-type="<%= follow.type %>"
+            data-id="<%= follow.track_id %>"
+            data-bs-target="#previewModal"
+          >
+            試聽
+          </div>
+        </div>
+        <% }) %> <% } %>
+      </div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="previewModal"
+        tabindex="-1"
+        aria-labelledby="previewModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Music Preview</h5>
+              <button
+                type="button"
+                id="previewClose"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <iframe
+                id="previewKKBOX"
+                width="100%"
+                src=""
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+              <div id="previewSpotify">
+                <div id="embed-iframe"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <footer></footer>
+    <script src="../javascripts/global.js" type="text/javascript"></script>
+    <script src="../javascripts/profile.js" type="text/javascript"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </body>
 </html>

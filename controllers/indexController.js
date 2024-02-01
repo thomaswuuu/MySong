@@ -2,7 +2,6 @@ const spotifyModels = require("../models/spotifyModel");
 const kkboxModels = require("../models/kkboxModel");
 const kkboxChartsModel = kkboxModels.getChartsModel();
 const spotifyChartsModel = spotifyModels.getChartsModel();
-const followModel = require("../models/followModel");
 
 const getAllCharts = async (req, res) => {
   try {
@@ -67,52 +66,4 @@ const getTracks = async (req, res) => {
   }
 };
 
-const getFollows = async (req, res) => {
-  try {
-    if (req.user) {
-      const track_id = req.query.id;
-      const follows = await followModel.find({
-        user_id: req.user._id,
-        track_id: track_id,
-      });
-      if (follows.length) return res.status(200).json({ status: "1" });
-      else return res.status(200).json({ status: "0" });
-    } else {
-      return res.status(200).json({ status: "0" });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
-
-const setFollows = async (req, res) => {
-  try {
-    if (req.user) {
-      if (req.body.status == 1) {
-        const newFollow = new followModel({
-          user_id: req.user._id,
-          type: req.body.type,
-          track_id: req.body.track_id,
-          title: req.body.title,
-          titleLink: req.body.titleLink,
-          artist: req.body.artist,
-          artistLink: req.body.artistLink,
-          cover: req.body.cover,
-        });
-        await newFollow.save();
-      } else {
-        await followModel.deleteOne({
-          user_id: req.user._id,
-          track_id: req.body.track_id,
-        });
-      }
-      return res.status(200).json({ result: "ok" });
-    } else {
-      return res.status(401).json({ result: "unauthorized" });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
-
-module.exports = { getAllCharts, getTracks, getFollows, setFollows };
+module.exports = { getAllCharts, getTracks };

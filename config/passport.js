@@ -6,13 +6,12 @@ const User = require("../models/userModel");
 const HOST = process.env.HOST;
 
 passport.serializeUser((user, done) => {
-  console.log("Serialize user...");
-  // console.log(user);
+  // console.log("Serialize user...",user);
   done(null, user._id);
 });
 
 passport.deserializeUser(async (_id, done) => {
-  console.log("Deserialize user。。。");
+  // console.log("Deserialize user...",_id);
   let foundUser = await User.findOne({ _id });
   done(null, foundUser); //將req.user這個屬性設定為foundUser
 });
