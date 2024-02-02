@@ -15,7 +15,7 @@
 .profile {
   display: flex;
   flex-wrap: wrap;
-  margin: 10px auto 40px auto;
+  margin: 10px auto 30px auto;
   max-width: 1024px;
 }
 .profile h4 {
@@ -26,5 +26,4 @@
   align-items: center;
   width: 320px;
   margin: 10px;
-  padding-right: 0.5rem;
 }
