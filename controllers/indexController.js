@@ -30,10 +30,8 @@ const getAllCharts = async (req, res) => {
     });
     return res.render("index", { kkboxCharts, spotifyCharts, user: req.user });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
-
-  return;
 };
 
 const getTracks = async (req, res) => {
@@ -64,7 +62,7 @@ const getTracks = async (req, res) => {
 
     return res.status(200).json(tracksList);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 

@@ -1,0 +1,29 @@
+.user {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1024px;
+}
+.user-image {
+  width: 100px;
+  height: 100px;
+  margin: 10px 20px;
+}
+.user-info {
+  width: 100%;
+}
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px auto 30px auto;
+  max-width: 1024px;
+}
+.profile h4 {
+  margin: 15px 10px;
+}
+.profile .track-box {
+  display: flex;
+  align-items: center;
+  width: 320px;
+  margin: 10px;
+}
