@@ -10,14 +10,9 @@ const userSchema = new mongoose.Schema({
   ID: {
     type: String,
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
   thumbnail: {
     type: String,
   },
-  // local login
   email: {
     type: String,
   },
@@ -25,6 +20,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     minLength: 8,
     maxLength: 1024,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
   },
 });
 

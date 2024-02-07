@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
+const apiRoutes = require("./routes/api");
 const dotenv = require("dotenv");
 dotenv.config();
 require("./config/passport");
@@ -26,7 +27,7 @@ app.use(
     secret: "keyboard cat",
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 600000 },
+    cookie: { maxAge: 3600000 },
   })
 );
 app.use(express.static(path.join(__dirname, "public")));
@@ -46,6 +47,7 @@ connectDB();
 app.use("/", indexRoutes);
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
+app.use("/api", apiRoutes);
 
 // Port binding
 const port = process.env.PORT || 8080;
