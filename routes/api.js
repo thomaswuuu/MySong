@@ -24,16 +24,17 @@ router.delete("/tracks", indexController.deleteTracks);
 
 router.use("/users", auth.superAuthCheck);
 router.get("/users", userController.getAllUsers);
-router.get("/users/:id", userController.getUser);
+router.get("/users/:user_id", userController.getUser);
 router.post("/users", userController.setUser);
-router.put("/users/:id", userController.updateUser);
-router.delete("/users/:id", userController.deleteUser);
+router.put("/users/:user_id", userController.updateUser);
+router.delete("/users/:user_id", userController.deleteUser);
 
 // Add middleware and check login token for normal user
 router.use("/follows", auth.normalAuthCheck);
-router.get("/follows", profileController.getUserFollows);
-router.post("/follows", profileController.setUserFollows);
-router.put("/follows", profileController.updateUserFollows);
-router.delete("/follows", profileController.deleteUserFollows);
+router.get("/follows", profileController.getUserAllFollows);
+router.get("/follows/:track_id", profileController.getUserFollow);
+router.post("/follows", profileController.setUserFollow);
+router.put("/follows/:track_id", profileController.updateUserFollow);
+router.delete("/follows/:track_id", profileController.deleteUserFollow);
 
 module.exports = router;

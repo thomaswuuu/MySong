@@ -3,7 +3,7 @@ const { JWT_SECRET, ADMIN_EMAIL, ADMIN_NAME } = process.env;
 
 const createAuthToken = (req, res) => {
   // Create JWT token
-  const user = { name: req.user.name, email: req.user.email };
+  const user = req.user;
   const token = JWT.sign({ user }, JWT_SECRET, { expiresIn: "1h" });
 
   return res.json({ token });

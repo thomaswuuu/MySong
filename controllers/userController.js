@@ -15,9 +15,9 @@ const getAllUsers = async (req, res) => {
           date: user.date,
         };
       });
-      return res.status(200).json({ users });
+      return res.status(200).json(users);
     } else {
-      return res.status(200).json({ message: "No users" });
+      return res.status(200).json({ message: "No user data" });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -25,16 +25,17 @@ const getAllUsers = async (req, res) => {
 };
 const getUser = async (req, res) => {
   try {
-    const user_id = req.params.id;
+    const user_id = req.params.user_id;
     const userData = await User.findOne({ _id: user_id });
     if (userData) {
       const user = {
+        id: userData._id,
         name: userData.name,
         email: userData.email,
         thumbnail: userData.thumbnail || "",
         date: userData.date,
       };
-      return res.status(200).json({ user });
+      return res.status(200).json(user);
     } else {
       return res.status(200).json({ message: "User does not exist" });
     }
@@ -74,7 +75,7 @@ const setUser = async (req, res) => {
 };
 const updateUser = async (req, res) => {
   try {
-    const user_id = req.params.id;
+    const user_id = req.params.user_id;
     const queryData = { _id: user_id };
     const count = await User.countDocuments(queryData);
     // Check if user does exist
@@ -92,7 +93,7 @@ const updateUser = async (req, res) => {
 };
 const deleteUser = async (req, res) => {
   try {
-    const user_id = req.params.id;
+    const user_id = req.params.user_id;
     const queryData = { _id: user_id };
     const count = await User.countDocuments(queryData);
     // Check if user does exist

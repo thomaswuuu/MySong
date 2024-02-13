@@ -105,13 +105,16 @@ const setFollowStatus = async (req, res) => {
 };
 
 // For RESTful API
-const getUserFollows = async (req, res) => {
+const getUserAllFollows = async (req, res) => {
   try {
     const platform = req.query.platform;
-    const follows = await followModel.find({ user_id: req.user._id });
-    const followTracks = follows
-      .filter((followTrack) => followTrack.type == platform)
-      .map((followTrack) => {
+    const followData = await followModel.find({ user_id: req.user._id });
+    if (followData) {
+      const followFiltered =
+        platform == null
+          ? followData
+          : followData.filter((data) => data.type == platform);
+      const tracks = followFiltered.map((followTrack) => {
         return {
           type: followTrack.type,
           track_id: followTrack.track_id,
@@ -122,19 +125,46 @@ const getUserFollows = async (req, res) => {
           cover: followTrack.cover,
         };
       });
-    return res.json({ followTracks });
+      return res.json(tracks);
+    } else {
+      return res.status(200).json({ message: "No track data" });
+    }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-const setUserFollows = async (req, res) => {
+const getUserFollow = async (req, res) => {
+  try {
+    const user_id = req.user._id;
+    const track_id = req.params.track_id;
+    const queryData = { user_id, track_id };
+    const followData = await followModel.findOne(queryData);
+    if (followData) {
+      const track = {
+        type: followData.type,
+        track_id: followData.track_id,
+        title: followData.title,
+        titleLink: followData.titleLink,
+        artist: followData.artist,
+        artistLink: followData.artistLink,
+        cover: followData.cover,
+      };
+      return res.status(200).json(track);
+    } else {
+      return res.status(200).json({ message: "This track does not exist" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+const setUserFollow = async (req, res) => {
   try {
     const user_id = req.user._id;
     const track_id = req.body.track_id;
     const queryData = { user_id, track_id };
     const count = await followModel.countDocuments(queryData);
     if (count) {
-      return res.status(200).json({ message: "This track does exist" });
+      return res.status(200).json({ message: "This track already exists" });
     } else {
       const newFollow = new followModel({
         user_id: user_id,
@@ -153,36 +183,35 @@ const setUserFollows = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-const updateUserFollows = async (req, res) => {
+const updateUserFollow = async (req, res) => {
   try {
     const user_id = req.user._id;
-    const track_id = req.body.track_id;
+    const track_id = req.params.track_id;
     const queryData = { user_id, track_id };
+    console.log(queryData);
     const count = await followModel.countDocuments(queryData);
     if (count) {
-      const newFollow = {
-        user_id: user_id,
+      const updateFollow = {
         type: req.body.type,
-        track_id: track_id,
         title: req.body.title,
         titleLink: req.body.titleLink,
         artist: req.body.artist,
         artistLink: req.body.artistLink,
         cover: req.body.cover,
       };
-      await followModel.findOneAndUpdate(queryData, newFollow);
+      await followModel.findOneAndUpdate(queryData, updateFollow);
       return res.status(201).json({ message: "Update track successfully" });
     } else {
-      return res.status(200).json({ message: "This track does exist" });
+      return res.status(200).json({ message: "This track does not exists" });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-const deleteUserFollows = async (req, res) => {
+const deleteUserFollow = async (req, res) => {
   try {
     const user_id = req.user._id;
-    const track_id = req.body.track_id;
+    const track_id = req.params.track_id;
     const queryData = { user_id, track_id };
     const count = await followModel.countDocuments(queryData);
     if (count) {
@@ -200,8 +229,9 @@ module.exports = {
   getUserProfile,
   getFollowStatus,
   setFollowStatus,
-  getUserFollows,
-  setUserFollows,
-  updateUserFollows,
-  deleteUserFollows,
+  getUserAllFollows,
+  getUserFollow,
+  setUserFollow,
+  updateUserFollow,
+  deleteUserFollow,
 };

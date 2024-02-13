@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     minLength: 3,
     maxLength: 255,
   },
-  ID: {
+  token: {
     type: String,
   },
   thumbnail: {
