@@ -10,7 +10,6 @@ const JWTAuthCheck = (req, res, next) => {
     req.flash("error_msg", "登入憑證已過期，請重新登入。");
     return res.redirect("/auth/login");
   }
-
   JWT.verify(token, JWTSecret, (err, decoded) => {
     if (err) {
       req.flash("error_msg", "登入憑證已失效，請重新登入。");
@@ -21,7 +20,7 @@ const JWTAuthCheck = (req, res, next) => {
 };
 
 router.get("/", JWTAuthCheck, controller.getUserProfile);
-router.get("/follows", controller.getFollows);
-router.post("/follows", controller.setFollows);
+router.get("/follows", controller.getFollowStatus);
+router.post("/follows", controller.setFollowStatus);
 
 module.exports = router;
