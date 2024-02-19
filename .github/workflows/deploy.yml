@@ -40,4 +40,6 @@ jobs:
           use_existing_version_if_available: "true"
 
       - name: Create json file for swagger
-        run: npm run swagger
+        run: |
+          npm install
+          npm run swagger
