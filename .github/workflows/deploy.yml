@@ -38,8 +38,3 @@ jobs:
           version_label: ${{ github.sha }}
           deployment_package: deploy.zip
           use_existing_version_if_available: "true"
-
-      - name: Recreate json file for swagger
-        run: |
-          npm install
-          npm run swagger

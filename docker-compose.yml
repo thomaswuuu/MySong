@@ -3,7 +3,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     container_name: MySong
     environment:
       MONGO_URI: ${MONGO_URI}
@@ -18,7 +18,7 @@ services:
     restart: always
     build:
       context: ./nginx
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     container_name: myNginx
     depends_on:
       - web

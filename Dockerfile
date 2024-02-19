@@ -13,5 +13,8 @@ RUN npm install
 # Copy source code to working directory
 COPY ./ ./
 
+# Create swagger json file
+RUN npm run swagger
+
 # Initial process
 CMD [ "npm","start" ]
