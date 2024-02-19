@@ -38,3 +38,6 @@ jobs:
           version_label: ${{ github.sha }}
           deployment_package: deploy.zip
           use_existing_version_if_available: "true"
+
+      - name: Create json file for swagger
+        run: npm run swagger
