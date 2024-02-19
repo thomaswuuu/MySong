@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080/api",
+      "url": "http://localhost/api",
       "description": ""
     }
   ],
@@ -41,7 +41,7 @@
         "tags": [
           "charts"
         ],
-        "summary": "Get chart lists of queried platform",
+        "summary": "Get chart list of queried platform",
         "description": "",
         "parameters": [
           {
@@ -78,7 +78,7 @@
         "tags": [
           "charts"
         ],
-        "summary": "Update chart lists of queried platform",
+        "summary": "Update chart list of queried platform",
         "description": "",
         "parameters": [
           {
@@ -117,7 +117,7 @@
         "tags": [
           "tracks"
         ],
-        "summary": "Get tracks lists of queried platform and playlist_id",
+        "summary": "Get track list of queried platform and playlist_id",
         "description": "",
         "parameters": [
           {
@@ -163,7 +163,7 @@
         "tags": [
           "tracks"
         ],
-        "summary": "Update track lists of queried platform and playlist_id",
+        "summary": "Update track list of queried platform and playlist_id",
         "description": "",
         "parameters": [
           {
