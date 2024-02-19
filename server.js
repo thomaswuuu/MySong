@@ -12,6 +12,9 @@ dotenv.config();
 require("./config/passport");
 const passport = require("passport");
 const flash = require("connect-flash");
+const cors = require("cors");
+const swaggerUI = require("swagger-ui-express");
+const swaggerDocument = require("./swagger-out.json");
 
 const app = express();
 
@@ -40,6 +43,8 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   next();
 });
+app.use(cors());
+
 // Connect to database
 connectDB();
 
@@ -48,6 +53,7 @@ app.use("/", indexRoutes);
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/api", apiRoutes);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // Port binding
 const port = process.env.PORT || 8080;
