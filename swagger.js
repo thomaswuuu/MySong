@@ -17,10 +17,6 @@ const doc = {
   ],
   components: {
     schemas: {
-      login: {
-        $username: "admin@gmail.com",
-        $password: "root123456",
-      },
       users: {
         $name: "tester",
         $email: "tester@example.com",
