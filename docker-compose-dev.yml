@@ -8,6 +8,8 @@ services:
     env_file: .env
     ports:
       - "${PORT}:${PORT}"
+    depends_on:
+      - mongodb
   nginx:
     restart: always
     build:
@@ -18,3 +20,15 @@ services:
       - web
     ports:
       - "80:80"
+  mongodb:
+    image: mongo:latest
+    container_name: myMongoDB
+    ports:
+      - "27017:27017"
+    env_file: .env
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ADMIN}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - ./data:/data/db
