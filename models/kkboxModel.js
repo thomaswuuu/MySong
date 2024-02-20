@@ -43,7 +43,7 @@ const createToken = async () => {
       last_timestamp: Math.floor(new Date().getTime() / 1000),
     };
     // Save kkbox access token
-    const length = await oauth2Model.count();
+    const length = await oauth2Model.countDocuments();
     if (length) await oauth2Model.deleteMany();
     const new_oauth2 = new oauth2Model(token);
 

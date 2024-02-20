@@ -177,7 +177,7 @@ const setTracks = async (req, res) => {
       return res.status(400).json({ message: messages.failed("C") });
     } else {
       // Save tracks of playlist
-      const tracksList = await kkboxModels.getTracksData(playlist_id);
+      const tracksList = await models.getTracksData(playlist_id);
       tracksModel
         .insertMany(tracksList)
         .then(() => {

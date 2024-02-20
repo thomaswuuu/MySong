@@ -35,7 +35,18 @@ router.get(
 
 router.post(
   "/charts",
-  // #swagger.ignore = true
+  /* #swagger.tags = ["charts"]
+     #swagger.summary = 'Create chart list of queried platform'
+     #swagger.parameters['platform'] = {
+        in: 'query',
+        required: 'true',
+        description: 'Platform(KKBOX/Spotify)',
+        type: 'string'
+     }
+     #swagger.security = [{
+        "bearerAuth": []
+      }]
+  */
   indexController.setCharts
 );
 router.put(
@@ -85,7 +96,24 @@ router.get(
 );
 router.post(
   "/tracks",
-  // #swagger.ignore = true
+  /* #swagger.tags = ["tracks"]
+     #swagger.summary = 'Create track list of queried platform and playlist_id'
+     #swagger.parameters['platform'] = {
+        in: 'query',
+        required: 'true',
+        description: 'Platform(KKBOX/Spotify)',
+        type: 'string'
+     }
+     #swagger.parameters['id'] = {
+        in: 'query',
+        required: 'true',
+        description: 'Playlist Id',
+        type: 'string'
+     }
+     #swagger.security = [{
+        "bearerAuth": []
+      }]
+  */
   indexController.setTracks
 );
 router.put(

@@ -42,7 +42,7 @@ const createToken = async () => {
       expires_in: data.expires_in,
     };
     // Save spotify access token
-    const length = await oauth2Model.count();
+    const length = await oauth2Model.countDocuments();
     if (length) await oauth2Model.deleteMany();
     const new_oauth2 = new oauth2Model(token);
 
