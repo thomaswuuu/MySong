@@ -9,19 +9,7 @@ const passport = require("passport");
 // Login and create token
 router.post(
   "/login",
-  /* #swagger.tags = ["login"]
-     #swagger.summary = 'Login MySong App'
-     #swagger.requestBody = {
-        required: true,
-        content: {
-          "application/json": {
-            schema: {
-                $ref: "#/components/schemas/login"
-            }
-          }
-        }
-      }
-   */
+  // #swagger.ignore = true
   passport.authenticate("local"),
   auth.createAuthToken
 );
