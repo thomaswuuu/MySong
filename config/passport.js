@@ -26,7 +26,7 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       console.log("進入Google Stratagy的區域");
       console.log("========================");
-      let foundUser = await User.findOne({ ID: profile.id }).exec();
+      let foundUser = await User.findOne({ token: profile.id }).exec();
       if (foundUser) {
         console.log("使用者已經註冊過了，無須存入資料庫內。");
         done(null, foundUser);
@@ -34,7 +34,7 @@ passport.use(
         console.log("偵測到新用戶，須將存入資料庫內");
         let newUser = new User({
           name: profile.displayName,
-          ID: profile.id,
+          token: profile.id,
           thumbnail: profile.photos[0].value,
           email: profile.emails[0].value,
         });
