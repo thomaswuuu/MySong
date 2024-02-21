@@ -11,7 +11,7 @@ const doc = {
   },
   servers: [
     {
-      url: `http://${HOST}/api`,
+      url: `${HOST}/api`,
       description: "",
     },
   ],

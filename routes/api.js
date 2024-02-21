@@ -3,6 +3,7 @@ const router = express.Router();
 const indexController = require("../controllers/indexController");
 const userController = require("../controllers/userController");
 const profileController = require("../controllers/profileController");
+const updateContorller = require("../controllers/updateController");
 const auth = require("../controllers/authController");
 const passport = require("passport");
 
@@ -287,6 +288,25 @@ router.delete(
       }]
    */
   profileController.deleteUserFollow
+);
+
+// Auto Update
+router.use("/autoupdate", auth.superAuthCheck);
+router.get(
+  "/autoupdate/:command",
+  /* #swagger.tags = ["autoupdate"]
+     #swagger.summary = 'Controll and check autoupdate with command'
+     #swagger.parameters['command'] = {
+        in: 'path',
+        required: 'true',
+        description: 'command: start | stop | time | status',
+        type: 'string'
+     }
+     #swagger.security = [{
+        "bearerAuth": []
+      }]
+   */
+  updateContorller.autoUpdateTime
 );
 
 module.exports = router;
