@@ -36,4 +36,6 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ADMIN}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
-      - ./data:/data/db
+      - mongodb_data:/data/db
+volumes:
+  mongodb_data:

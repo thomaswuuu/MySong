@@ -5,16 +5,19 @@ const bcrpyt = require("bcrypt");
 const getAllUsers = async (req, res) => {
   try {
     const userData = await User.find();
+    const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
     if (userData) {
-      const users = userData.map((user) => {
-        return {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          thumbnail: user.thumbnail || "",
-          date: user.date,
-        };
-      });
+      const users = userData
+        .filter((user) => user.email != ADMIN_EMAIL)
+        .map((user) => {
+          return {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            thumbnail: user.thumbnail || "",
+            date: user.date,
+          };
+        });
       return res.status(200).json(users);
     } else {
       return res.status(200).json({ message: "No user data" });
