@@ -29,8 +29,8 @@ const createToken = async () => {
     const endpoint = "https://account.kkbox.com/oauth2/token";
     const formatData = {
       grant_type: "client_credentials",
-      client_id: process.env.KK_ID,
-      client_secret: process.env.KK_SECRET,
+      client_id: process.env.KKBOX_CLIENT_ID,
+      client_secret: process.env.KKBOX_CLIENT_SECRET,
     };
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
