@@ -15,8 +15,8 @@ router.post(
   auth.createAuthToken
 );
 
-// Add middleware and check login token for super user
-router.use("/charts", auth.superAuthCheck);
+// Add middleware and check login token for super user and normal user
+router.use("/charts", auth.normalAuthCheck);
 router.get(
   "/charts",
   /* #swagger.tags = ["charts"]
@@ -33,7 +33,7 @@ router.get(
    */
   indexController.getCharts
 );
-
+router.use("/charts", auth.superAuthCheck);
 router.post(
   "/charts",
   /* #swagger.tags = ["charts"]
@@ -72,7 +72,7 @@ router.delete(
   indexController.deleteCharts
 );
 
-router.use("/tracks", auth.superAuthCheck);
+router.use("/tracks", auth.normalAuthCheck);
 router.get(
   "/tracks",
   /* #swagger.tags = ["tracks"]
@@ -95,6 +95,7 @@ router.get(
    */
   indexController.getTracks
 );
+router.use("/tracks", auth.superAuthCheck);
 router.post(
   "/tracks",
   /* #swagger.tags = ["tracks"]
