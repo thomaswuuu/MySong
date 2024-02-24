@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const musicSchema = new mongoose.Schema({
+const tracksSchema = new mongoose.Schema({
   id: { type: String, require: true },
   track_id: { type: String, require: true },
   rankNo: { type: Number, require: true },
@@ -14,4 +14,4 @@ const musicSchema = new mongoose.Schema({
   release_date: { type: String, require: true },
 });
 
-module.exports = musicSchema;
+module.exports = tracksSchema;
