@@ -2,12 +2,7 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const SpotifyWebApi = require("spotify-web-api-node");
 
-const oauth2Schema = new mongoose.Schema({
-  access_token: { type: String, require: true },
-  token_type: { type: String, require: true },
-  expires_in: { type: Number, require: true },
-});
-
+const oauth2Schema = require("../schemas/oauth2Schema");
 const chartsSchema = require("../schemas/chartsSchema");
 const tracksSchema = require("../schemas/tracksSchema");
 
@@ -40,6 +35,7 @@ const createToken = async () => {
       access_token: data.access_token,
       token_type: data.token_type,
       expires_in: data.expires_in,
+      last_timestamp: Math.floor(new Date().getTime() / 1000),
     };
     // Save spotify access token
     const length = await oauth2Model.countDocuments();
@@ -47,6 +43,37 @@ const createToken = async () => {
     const new_oauth2 = new oauth2Model(token);
 
     return await new_oauth2.save();
+  } catch (error) {
+    throw error;
+  }
+};
+
+/* Get token data */
+const getToken = async () => {
+  try {
+    const oauth2Data = await oauth2Model.findOne();
+    if (oauth2Data) {
+      // Data has already existed
+      const expires_in = Boolean(oauth2Data.expires_in)
+        ? oauth2Data.expires_in
+        : 0;
+      const last_timestamp = Boolean(oauth2Data.last_timestamp)
+        ? oauth2Data.last_timestamp
+        : 0;
+      // Elapsed time = current timestamp - last timestamp
+      const current_timestamp = Math.floor(new Date().getTime() / 1000);
+      const elapsedTime = current_timestamp - last_timestamp;
+      const new_expire_in = expires_in - elapsedTime;
+      if (new_expire_in <= 0) return await createToken();
+      const updateData = {
+        expires_in: new_expire_in,
+        last_timestamp: current_timestamp,
+      };
+      return await oauth2Model.findOneAndUpdate({}, updateData);
+    } else {
+      // Data does not exist
+      return await createToken();
+    }
   } catch (error) {
     throw error;
   }
@@ -81,7 +108,7 @@ const getFilteredChartsData = async (spotifyApi, keyword, limit) => {
 const getChartsData = async () => {
   try {
     // Get charts list
-    const oauth2Data = await createToken();
+    const oauth2Data = await getToken();
     const access_token = oauth2Data.access_token;
     const spotifyApi = new SpotifyWebApi();
     spotifyApi.setAccessToken(access_token);
@@ -114,7 +141,7 @@ const getChartsData = async () => {
 const getTracksData = async (playlist_id) => {
   // Get tracks of specific charts playlist
   try {
-    const oauth2Data = await createToken();
+    const oauth2Data = await getToken();
     const access_token = oauth2Data.access_token;
     const spotifyApi = new SpotifyWebApi();
     spotifyApi.setAccessToken(access_token);

@@ -1,13 +1,7 @@
 const mongoose = require("mongoose");
 const axios = require("axios");
 
-const oauth2Schema = new mongoose.Schema({
-  access_token: { type: String, require: true },
-  token_type: { type: String, require: true },
-  expires_in: { type: Number, require: true },
-  last_timestamp: { type: Number, require: true },
-});
-
+const oauth2Schema = require("../schemas/oauth2Schema");
 const chartsSchema = require("../schemas/chartsSchema");
 const tracksSchema = require("../schemas/tracksSchema");
 
@@ -56,18 +50,28 @@ const createToken = async () => {
 const getToken = async () => {
   try {
     const oauth2Data = await oauth2Model.findOne();
-    const expires_in = Boolean(oauth2Data) ? oauth2Data.expires_in : 0;
-    const last_timestamp = Boolean(oauth2Data) ? oauth2Data.last_timestamp : 0;
-    // Elapsed time = current timestamp - last timestamp
-    const current_timestamp = Math.floor(new Date().getTime() / 1000);
-    const elapsedTime = current_timestamp - last_timestamp;
-    const new_expire_in = expires_in - elapsedTime;
-    if (new_expire_in <= 0) return await createToken();
-    const updateData = {
-      expires_in: new_expire_in,
-      last_timestamp: current_timestamp,
-    };
-    return await oauth2Model.findOneAndUpdate({}, updateData);
+    if (oauth2Data) {
+      // Data has already existed
+      const expires_in = Boolean(oauth2Data.expires_in)
+        ? oauth2Data.expires_in
+        : 0;
+      const last_timestamp = Boolean(oauth2Data.last_timestamp)
+        ? oauth2Data.last_timestamp
+        : 0;
+      // Elapsed time = current timestamp - last timestamp
+      const current_timestamp = Math.floor(new Date().getTime() / 1000);
+      const elapsedTime = current_timestamp - last_timestamp;
+      const new_expire_in = expires_in - elapsedTime;
+      if (new_expire_in <= 0) return await createToken();
+      const updateData = {
+        expires_in: new_expire_in,
+        last_timestamp: current_timestamp,
+      };
+      return await oauth2Model.findOneAndUpdate({}, updateData);
+    } else {
+      // Data does not exist
+      return await createToken();
+    }
   } catch (error) {
     throw error;
   }
