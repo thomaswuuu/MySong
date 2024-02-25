@@ -5,14 +5,13 @@ const tracks = document.querySelector("#tracks");
 
 const queryTracks = (e) => {
   // Get tracks data
+  const playlist_id = e.id;
   const type = e.dataset.type;
-  const playlist_id = e.dataset.id;
   const chartCover = e.childNodes[1].src;
   const chartTitle = e.childNodes[3].innerText;
   const borderStyle = type == "KKBOX" ? "kkbox-border" : "spotify-border";
   const hub = new MusicsHub(type, playlist_id);
   const tracksData = hub.getData();
-
   spinner.style.display = "flex";
   charts.style.display = "none";
   tracks.style.display = "none";
@@ -83,7 +82,7 @@ const queryTracks = (e) => {
           charts.style.display = "flex";
           tracks.style.display = "none";
           back.style.display = "none";
-          window.location.href = "#charts";
+          window.location.href = `#${playlist_id}`;
         });
         // display tracks results
         spinner.style.display = "none";
