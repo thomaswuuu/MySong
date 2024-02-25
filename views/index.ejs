@@ -12,8 +12,8 @@
         <% if(kkboxCharts){ %><% kkboxCharts.forEach((chart)=> { %>
         <div
           class="chart-box kkbox-border fade-in"
+          id="<%= chart.id %>"
           data-type="KKBOX"
-          data-id="<%= chart.id %>"
         >
           <img src="<%= chart.cover %>" />
           <p><%= chart.title %></p>
@@ -23,8 +23,8 @@
         <% if(spotifyCharts) { %><% spotifyCharts.forEach((chart)=> { %>
         <div
           class="chart-box spotify-border fade-in"
+          id="<%= chart.id %>"
           data-type="Spotify"
-          data-id="<%= chart.id %>"
         >
           <img src="<%= chart.cover %>" />
           <p><%= chart.title %></p>
