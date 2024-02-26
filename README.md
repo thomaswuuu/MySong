@@ -217,4 +217,5 @@ $ docker-compose -f docker-compose-dev.yml up -d
 $ docker-compose -f docker-compose-dev.yml down
 ```
 #### 雲端平台
-上傳至github後會自動化部屬至AWS託管服務的Docker環境中執行。
+上傳至github後會自動化部屬至AWS託管服務的Docker環境中執行，
+請參考 .github/workflows資料夾中的deploy.yml。
