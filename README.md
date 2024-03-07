@@ -1,28 +1,6 @@
 # MySong
 使用MySong App可取得KKBOX和Spotify的各平台音樂排行榜，顯示各類排行榜列表和歌曲清單，使用者註冊會員並登入後可追蹤自己所喜愛的歌曲，進入個人檔案後即可顯示目前所追蹤的各平台歌曲列表。
 
-## 系統架構
-產品完成後會透過Github Action自動化部屬至AWS的托管服务中，再經由Dockerfile和Docker Compose工具啟動下列三個container並執行各自的服務：
-* myNginx：網頁伺服器，負責反向代理。
-* MySong：歌曲追蹤服務，處理音樂排行榜和用戶資訊。
-* myMongoDB：資料庫，儲存排行榜和用戶資訊。
-
-最後將已經部屬好的網站設定至cloudfare的網域代理服務，讓使用者可以透過提供的SSL/TLS加密服務進行HTTPS安全連線。
-### 系統架構圖
-<img width="767" alt="歌曲追蹤平台架構圖" src="https://github.com/thomaswuuu/MySong/assets/5268096/0d278b5a-19f3-4990-baeb-abd88b57598c">
-
-## 使用技術
-* **網頁伺服器(反向代理)**：Nginx
-* **Web應用框架**：Node.js/Express.js
-* **資料庫**：MongoDB/mongoose
-* **身分驗證**：Passport.js + JWT
-  * **第三方登入**：Google OAuth2
-  * **本地註冊登入**：密碼使用bcrypt加密
-* **第三方API**：KKBOX OpenAPI、Spotify Web API
-* **虛擬化**：Dockerfile with Docker Compose 
-* **自動化部屬**：Github Action
-* **API文件**：Swagger UI Express
-
 ## 功能介紹
 ### 1. 首頁
 列出KKBOX和Spotify音樂排行榜列表
@@ -55,6 +33,28 @@
 ![changeUser](https://github.com/thomaswuuu/MySong/assets/5268096/ad456b18-cc62-4005-a6e8-31cd3abc72db)
 
 #### 網站連結：https://mysong.thomas-wu.com
+
+## 系統架構
+產品完成後會透過Github Action自動化部屬至AWS的托管服务中，再經由Dockerfile和Docker Compose工具啟動下列三個container並執行各自的服務：
+* myNginx：網頁伺服器，負責反向代理。
+* MySong：歌曲追蹤服務，處理音樂排行榜和用戶資訊。
+* myMongoDB：資料庫，儲存排行榜和用戶資訊。
+
+最後將已經部屬好的網站設定至cloudfare的網域代理服務，讓使用者可以透過提供的SSL/TLS加密服務進行HTTPS安全連線。
+### 系統架構圖
+<img width="767" alt="歌曲追蹤平台架構圖" src="https://github.com/thomaswuuu/MySong/assets/5268096/0d278b5a-19f3-4990-baeb-abd88b57598c">
+
+## 使用技術
+* **網頁伺服器(反向代理)**：Nginx
+* **Web應用框架**：Node.js/Express.js
+* **資料庫**：MongoDB/mongoose
+* **身分驗證**：Passport.js + JWT
+  * **第三方登入**：Google OAuth2
+  * **本地註冊登入**：密碼使用bcrypt加密
+* **第三方API**：KKBOX OpenAPI、Spotify Web API
+* **虛擬化**：Dockerfile with Docker Compose 
+* **自動化部屬**：Github Action
+* **API文件**：Swagger UI Express
 
 ## Schema 介紹
 ### chart
