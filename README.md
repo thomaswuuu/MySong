@@ -52,7 +52,7 @@
   * **第三方登入**：Google OAuth2
   * **本地註冊登入**：密碼使用bcrypt加密
 * **第三方API**：KKBOX OpenAPI、Spotify Web API
-* **虛擬化**：Dockerfile with Docker Compose 
+* **容器化**：Dockerfile with Docker Compose 
 * **自動化部屬**：Github Action
 * **API文件**：Swagger UI Express
 
