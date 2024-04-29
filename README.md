@@ -32,7 +32,7 @@
 
 ![changeUser](https://github.com/thomaswuuu/MySong/assets/5268096/ad456b18-cc62-4005-a6e8-31cd3abc72db)
 
-#### 網站連結：https://mysong.thomas-wu.com
+#### 網站連結：~~https://mysong.thomas-wu.com~~ (因AWS費用，已停止服務)
 
 ## 系統架構
 產品完成後會透過Github Action自動化部屬至AWS的托管服务中，再經由Dockerfile和Docker Compose工具啟動下列三個container並執行各自的服務：
@@ -163,7 +163,7 @@ URL：https://mysong.thomas-wu.com/api/follows?platform=KKBOX
 
 ![apiFollows](https://github.com/thomaswuuu/MySong/assets/5268096/01bd966d-33e5-4faf-9ab2-e36f58369b7e)
 
-Swagger API文件連結：https://mysong.thomas-wu.com/api-docs
+Swagger API文件連結：~~https://mysong.thomas-wu.com/api-docs~~ (因AWS費用，已停止服務)
 
 ## 執行步驟與設定
 ### 取得程式碼
