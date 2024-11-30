@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrpyt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 require("dotenv").config();
 const dbPath = process.env.MONGO_URI;
@@ -20,7 +20,7 @@ const connectDB = async () => {
     const password = process.env.ADMIN_PASSWORD;
     const foundEmail = await User.findOne({ email });
     if (!foundEmail) {
-      let hashedPassword = await bcrpyt.hash(password, 12);
+      let hashedPassword = await bcrypt.hash(password, 12);
       let newUser = new User({
         name,
         email,

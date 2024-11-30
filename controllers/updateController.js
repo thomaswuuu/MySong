@@ -7,8 +7,11 @@ const kkboxTracks = kkboxModels.getTracksModel();
 const spotifyModels = require("../models/spotifyModel");
 const spotifyCharts = spotifyModels.getChartsModel();
 const spotifyTracks = spotifyModels.getTracksModel();
-let kkboxIntervalID = "";
-let spotifyIntervalID = "";
+require("dotenv").config();
+const cron = require("node-cron");
+const intervalTime = process.env.CRON_INTERVAL;
+let kkboxIntervalID = null;
+let spotifyIntervalID = null;
 
 const updateTracksData = async (type, chart_ids) => {
   try {
@@ -68,7 +71,6 @@ const updateChartsAndTracksData = async (type, delayTime) => {
 const autoUpdateTime = async (req, res) => {
   try {
     const command = req.params.command;
-    const intervalTime = 24 * 60 * 60 * 1000; // 1 day
     if (command == "start") {
       /* Start auto update */
       const statusInfo = await updateStatus.findOne();
@@ -76,17 +78,17 @@ const autoUpdateTime = async (req, res) => {
         // KKBOX
         let delayTime = 0;
         updateChartsAndTracksData("kkbox", delayTime);
-        kkboxIntervalID = setInterval(async () => {
+        kkboxIntervalID = cron.schedule(intervalTime, () => {
           updateChartsAndTracksData("kkbox", delayTime);
-        }, intervalTime);
+        });
 
         // Spotify
-        delayTime = 30 * 1000;
-        // Wait 30 seconds for kkbox updating completed
-        updateChartsAndTracksData("spotify", delayTime);
-        spotifyIntervalID = setInterval(async () => {
-          updateChartsAndTracksData("spotify", delayTime);
-        }, intervalTime);
+        // delayTime = 30 * 1000;
+        // // Wait 30 seconds for kkbox updating completed
+        // updateChartsAndTracksData("spotify", delayTime);
+        // spotifyIntervalID = cron.scheduleJob(intervalTime, () => {
+        //   updateChartsAndTracksData("spotify", delayTime);
+        // });
         // Set status enable
         const data = { status: "Enabled" };
         updateStatus.deleteOne().then(() => {
@@ -104,8 +106,8 @@ const autoUpdateTime = async (req, res) => {
       }
     } else if (command == "stop") {
       /* Stop auto update */
-      clearInterval(kkboxIntervalID);
-      clearInterval(spotifyIntervalID);
+      if (kkboxIntervalID) kkboxIntervalID.stop();
+      // if (spotifyIntervalID) spotifyIntervalID.stop();
       // Set status disable
       const data = { status: "Disabled" };
       updateStatus.deleteOne().then(() => {
