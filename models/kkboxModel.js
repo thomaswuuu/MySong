@@ -50,7 +50,6 @@ const createToken = async () => {
 const getToken = async () => {
   try {
     const oauth2Data = await oauth2Model.findOne();
-
     if (oauth2Data) {
       // Data has already existed
       const expires_in = Boolean(oauth2Data.expires_in)
